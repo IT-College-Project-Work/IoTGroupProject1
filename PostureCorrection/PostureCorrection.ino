@@ -18,7 +18,7 @@ const int LOUDSPEAKER;
 const int buzzer = 3; //Define pin 10, can use other PWM pins  (5,6 or 9)
                        //Note pins 3 and 11 can't be used when using the tone function in Arduino Uno
 const int songspeed = 1.5; //Change to 2 for a slower version of the song, the bigger the number the slower the song
-
+const int NUMBEROFNOTES = 5;
 int lightSensor;
 
 //Defining note frequency
@@ -39,7 +39,7 @@ int lightSensor;
 #define NOTE_B5  988
 
 //************Melody Note sequence**************
-int notes[] = 
+int notes[5] = 
 {  //Notes of the alert jingle
    NOTE_A5, NOTE_C5, NOTE_D5, NOTE_F5, 0 
 };
@@ -65,7 +65,7 @@ void loop()
   HttpClient client;
   
   bool scan = CheckForBeam();
-  
+
   Serial.println();
   if(scan)
   {
@@ -134,7 +134,7 @@ bool CheckForBeam()
   if(lightSensor > BEAMTHRESHOLD)
   {
     //Play melody when light is detected
-    PlayMelody(sizeof(notes));
+    PlayMelody(NUMBEROFNOTES);
     isDetected = true;
   }
   return isDetected;
