@@ -14,6 +14,7 @@ boolean DEBUG = true;
 
 const int BEAMTHRESHOLD = 350;
 const int LED = 13;
+const int SENSOR = A3;
 const int LOUDSPEAKER;
 const int buzzer = 3; //Define pin 10, can use other PWM pins  (5,6 or 9)
                        //Note pins 3 and 11 can't be used when using the tone function in Arduino Uno
@@ -132,7 +133,7 @@ bool CheckForBeam()
 {
   bool isDetected = false;
   //Setup sensorValue to read a value from Analog Port A3
-  lightSensor = analogRead(A3);
+  lightSensor = analogRead(SENSOR);
   if(lightSensor > BEAMTHRESHOLD)
   {
     isDetected = true;
