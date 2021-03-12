@@ -8,7 +8,7 @@
 #include <HttpClient.h>
 
 // Add your PushingBox Scenario DeviceID here:
-char devid[] = "v135BADAB42391E0";
+char devid[] = "v135BADAB42391E0"; //This must be replaced with new devid for the new google sheet used for the project. 
 char serverName[] = "api.pushingbox.com";
 boolean DEBUG = true;
 
@@ -79,6 +79,8 @@ void loop()
      Serial.print("Uploaded light value: ");
      Serial.print(lightSensor);
      Serial.println();
+     //Play melody when light is detected
+     PlayMelody(NUMBEROFNOTES);
   }
   else
   {
@@ -133,9 +135,11 @@ bool CheckForBeam()
   lightSensor = analogRead(A3);
   if(lightSensor > BEAMTHRESHOLD)
   {
-    //Play melody when light is detected
-    PlayMelody(NUMBEROFNOTES);
     isDetected = true;
+  }
+  else
+  {
+    isDetected = false;
   }
   return isDetected;
 }
