@@ -22,6 +22,7 @@ const int songspeed = 1.5; //Change to 2 for a slower version of the song, the b
 const int NUMBEROFNOTES = 5;
 int lightSensor;
 
+int eventID = 0;
 String status = "";
 
 //Defining note frequency
@@ -75,7 +76,7 @@ void loop()
      status = "LightDetected";
      //Make a HTTP request:  
      String APIRequest;
-     APIRequest = String(serverName) + "/pushingbox?devid=" + String(devid)+ "&IDtag=100&TimeStamp=50&LightLevel="+ lightSensor + "&Status=" + status;
+     APIRequest = String(serverName) + "/pushingbox?devid=" + String(devid)+ "&IDtag=" + eventID++ + "&TimeStamp=50&LightLevel="+ lightSensor + "&Status=" + status;
      client.get (APIRequest);
      //Print the status to serial monitor
      Serial.println(status);
