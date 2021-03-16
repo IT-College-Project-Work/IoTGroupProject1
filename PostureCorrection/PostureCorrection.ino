@@ -8,7 +8,7 @@
 #include <HttpClient.h>
 
 // Add your PushingBox Scenario DeviceID here:
-char devid[] = "v135BADAB42391E0"; //This must be replaced with new devid for the new google sheet used for the project. 
+char devid[] = "v17175AEC3026700"; 
 char serverName[] = "api.pushingbox.com";
 boolean DEBUG = true;
 
@@ -21,6 +21,8 @@ const int buzzer = 3; //Define pin 10, can use other PWM pins  (5,6 or 9)
 const int songspeed = 1.5; //Change to 2 for a slower version of the song, the bigger the number the slower the song
 const int NUMBEROFNOTES = 5;
 int lightSensor;
+
+String status = "";
 
 //Defining note frequency
 //*****************************************
@@ -70,12 +72,13 @@ void loop()
   Serial.println();
   if(scan)
   {
+     status = "Light Detected";
      //Make a HTTP request:  
      String APIRequest;
-     APIRequest = String(serverName) + "/pushingbox?devid=" + String(devid)+ "&IDtag=100&TimeStamp=50&TempC="+ lightSensor;
+     APIRequest = String(serverName) + "/pushingbox?devid=" + String(devid)+ "&IDtag=100&TimeStamp=50&LightLevel="+ lightSensor + "&Status=" + status;
      client.get (APIRequest);
      //Print the status to serial monitor
-     Serial.println("Light Detected");
+     Serial.println(status);
      //Print detected value to serial monitor
      Serial.print("Uploaded light value: ");
      Serial.print(lightSensor);
@@ -85,7 +88,8 @@ void loop()
   }
   else
   {
-    Serial.println("Light Not Detected");
+    status = "Light Not Detected";
+    Serial.println(status);
   }
   
   // if there are incoming bytes available
