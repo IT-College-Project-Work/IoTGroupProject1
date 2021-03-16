@@ -72,13 +72,14 @@ void loop()
   Serial.println();
   if(scan)
   {
-     status = "Light Detected";
+     status = "LightDetected";
      //Make a HTTP request:  
      String APIRequest;
      APIRequest = String(serverName) + "/pushingbox?devid=" + String(devid)+ "&IDtag=100&TimeStamp=50&LightLevel="+ lightSensor + "&Status=" + status;
      client.get (APIRequest);
      //Print the status to serial monitor
      Serial.println(status);
+     Serial.println(APIRequest);
      //Print detected value to serial monitor
      Serial.print("Uploaded light value: ");
      Serial.print(lightSensor);
@@ -88,7 +89,7 @@ void loop()
   }
   else
   {
-    status = "Light Not Detected";
+    status = "Light_Not_Detected";
     Serial.println(status);
   }
   
