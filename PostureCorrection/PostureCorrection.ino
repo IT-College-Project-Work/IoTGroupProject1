@@ -121,8 +121,6 @@ void Initialize()
   Bridge.begin();
   digitalWrite(LED, HIGH);
   Serial.begin(9600);
-  // wait for a serial connection
-  while (!Serial); //Remove when not connected to PC
 }
 
 //Lights the LED
