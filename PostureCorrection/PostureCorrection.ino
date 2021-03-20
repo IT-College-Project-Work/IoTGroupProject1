@@ -16,11 +16,12 @@ const int BEAMTHRESHOLD = 350;
 const int LED = 13;
 const int SENSOR = A3;
 const int LOUDSPEAKER;
-const int buzzer = 3; //Define pin 10, can use other PWM pins  (5,6 or 9)
-                       //Note pins 3 and 11 can't be used when using the tone function in Arduino Uno
-const int songspeed = 1.5; //Change to 2 for a slower version of the song, the bigger the number the slower the song
+const int buzzer = 3;             //Define pin 10, can use other PWM pins  (5,6 or 9)
+                                  //Note pins 3 and 11 can't be used when using the tone function in Arduino Uno
+const int songspeed = 1.5;        //Change to 2 for a slower version of the song, the bigger the number the slower the song
 const int NUMBEROFNOTES = 5;
 int lightSensor;
+unsigned long interval;                     //represents the interval between recorded events in milliseconds. 
 
 int eventID = 0;
 String status = "";
@@ -65,6 +66,8 @@ void setup()
 
 void loop() 
 {
+  interval = millis();
+  
   // Initialize the client library
   HttpClient client;
   
@@ -74,9 +77,11 @@ void loop()
   if(scan)
   {
      status = "LightDetected";
+     //update the interval field
+     interval = millis();
      //Make a HTTP request:  
      String APIRequest;
-     APIRequest = String(serverName) + "/pushingbox?devid=" + String(devid)+ "&IDtag=" + eventID++ + "&TimeStamp=50&LightLevel="+ lightSensor + "&Status=" + status;
+     APIRequest = String(serverName) + "/pushingbox?devid=" + String(devid)+ "&IDtag=" + eventID++ + "&TimeStamp="+ interval + "&LightLevel="+ lightSensor + "&Status=" + status;
      client.get (APIRequest);
      //Print the status to serial monitor
      Serial.println(status);
@@ -92,6 +97,7 @@ void loop()
   {
     status = "Light_Not_Detected";
     Serial.println(status);
+    Serial.println("Light Sensor value:" + lightSensor);
   }
   
   // if there are incoming bytes available
@@ -122,6 +128,7 @@ void Initialize()
 //Lights the LED
 void StartBeam()
 {
+   //Play simple light sequence
    digitalWrite(LED, HIGH);
    delay(1000);
    digitalWrite(LED, LOW);
