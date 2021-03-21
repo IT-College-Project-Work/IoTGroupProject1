@@ -12,7 +12,7 @@ char devid[] = "v17175AEC3026700";
 char serverName[] = "api.pushingbox.com";
 boolean DEBUG = true;
 
-const int BEAMTHRESHOLD = 100;
+const int BEAMTHRESHOLD = 100;    //Should be tweaked to suit lighting conditions of running environment. 
 const int LED = 13;
 const int SENSOR = A3;
 const int LOUDSPEAKER;
