@@ -4,8 +4,17 @@
    Description: Software produced for IoT Group Project 1. 
 */
 
+
+/* Comment this out to disable prints and save space */
+#define BLYNK_PRINT Serial
+
 #include <Bridge.h>
 #include <HttpClient.h>
+#include <BlynkSimpleYun.h>
+
+// You should get Auth Token in the Blynk App.
+// Go to the Project Settings (nut icon).
+char auth[] = "YCuTWes0epB1FcnpqoJiwtRzc2L1K_eE";
 
 // Add your PushingBox Scenario DeviceID here:
 char devid[] = "v17175AEC3026700"; 
@@ -68,6 +77,8 @@ void loop()
 {
   interval = millis();
   
+  Blynk.run();
+  
   // Initialize the client library
   HttpClient client;
   
@@ -121,6 +132,11 @@ void Initialize()
   Bridge.begin();
   digitalWrite(LED, HIGH);
   Serial.begin(9600);
+  //Initialize Blynk instance
+  Blynk.begin(auth);
+  // You can also specify server:
+  //Blynk.begin(auth, "blynk-cloud.com", 80);
+  //Blynk.begin(auth, IPAddress(192,168,1,100), 8080);
 }
 
 //Lights the LED
