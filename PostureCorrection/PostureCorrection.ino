@@ -161,7 +161,7 @@ void loop()
      //Make a HTTP request:  
      String APIRequest;
      APIRequest = String(serverName) + "/pushingbox?devid=" + String(devid)+ "&IDtag=" + eventID++ + "&TimeStamp="+ interval + "&LightLevel="+ lightSensor + "&Status=" + status;
-     //client.get (APIRequest);
+     client.get (APIRequest);
      //Print the status to serial monitor
      Serial.println(status);
      Serial.println(APIRequest);
